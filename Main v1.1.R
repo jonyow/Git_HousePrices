@@ -53,7 +53,11 @@ apply(train_data, 2, function(x)  sum(is.na(x)) )
 
 #test_data$MSZoning <- NULL
 #train_data$MSZoning <- NULL
-train.fit <- lm(SalePrice~., data=train_data)
+train.fit <- lm(SalePrice~LotArea + MSZoning + Street + LandSlope + 
+                  Neighborhood  + OverallQual + 
+                  OverallCond + YearBuilt + RoofMatl + ExterQual + BsmtQual+ 
+                  BsmtExposure + BsmtFinSF2 + BsmtUnfSF + X1stFlrSF + X2ndFlrSF
+                  , data=train_data)
 
 summary(train.fit)
 
@@ -92,7 +96,7 @@ colnames(test_data_2) <- colnames(test_data)
 
 output <- data.frame( Id =test_data_2$Id,   SalePrice=   predict(train.fit, newdata = test_data_2 , type='response'))
 
-write.csv(output, paste0( data_path, "predictions.csv" ), row.names=F, quote=F)
+write.csv(output, paste0( data_path, "predictions2.csv" ), row.names=F, quote=F)
 
 unique(test_data$Functional)
 unique(train_data$Functional)
